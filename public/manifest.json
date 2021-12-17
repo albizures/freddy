@@ -1,0 +1,33 @@
+{
+	"manifest_version": 3,
+	"name": "Freddy",
+	"version": "0.0.1",
+
+	"action": {},
+	"description": "An Alfred-like extension for the web",
+	"icons": {
+		"16": "assets/icon16.png",
+		"48": "assets/icon48.png",
+		"128": "assets/icon128.png"
+	},
+	"author": "Jose Albizures",
+	"background": {
+		"service_worker": "build/background.js"
+	},
+	"commands": {},
+	"permissions": ["tabs"],
+	"web_accessible_resources": [
+		{
+			"resources": ["build/bundle.css"],
+			"matches": ["<all_urls>"]
+		}
+	],
+	"content_scripts": [
+		{
+			"matches": ["<all_urls>"],
+			"match_about_blank": true,
+			"js": ["build/bundle.js"],
+			"css": ["build/bundle.css"]
+		}
+	]
+}
