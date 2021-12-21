@@ -38,3 +38,19 @@ export const openTab = (payload?: {
 		payload,
 	});
 };
+
+export const closeTab = (id?: number) => {
+	chrome.runtime.sendMessage<Message>({
+		from: '__FREDDY__CONTENT',
+		type: MessageTypes.CLOSE_TAB,
+		payload: id,
+	});
+};
+
+export const muteTab = (id?: number) => {
+	chrome.runtime.sendMessage<Message>({
+		from: '__FREDDY__CONTENT',
+		type: MessageTypes.MUTE_TAB,
+		payload: id,
+	});
+};

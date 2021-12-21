@@ -5,6 +5,10 @@ export const getTabs = async () => {
 	return chrome.tabs.query({});
 };
 
+function assertUnreachable(x: never): never {
+	throw new Error("Didn't expect to get here");
+}
+
 chrome.runtime.onMessage.addListener(
 	(message: Message, sender, sendResponse) => {
 		sendResponse({});
@@ -30,8 +34,35 @@ chrome.runtime.onMessage.addListener(
 				break;
 			case MessageTypes.NEW_TAB:
 				chrome.tabs.create({ active: true, ...message.payload });
-			default:
 				break;
+			case MessageTypes.CLOSE_TAB:
+				console.log('checking');
+
+				if (typeof message.payload === 'number') {
+					chrome.tabs.remove(message.payload);
+				} else {
+					chrome.tabs.query({ active: true }, (tabs) => {
+						const [tab] = tabs;
+						if (tab) {
+							chrome.tabs.remove(tab.id);
+						}
+					});
+				}
+				break;
+			case MessageTypes.MUTE_TAB:
+				if (typeof message.payload === 'number') {
+					chrome.tabs.update(message.payload, { muted: true });
+				} else {
+					chrome.tabs.query({ active: true }, (tabs) => {
+						const [tab] = tabs;
+						if (tab) {
+							chrome.tabs.update(tab.id, { muted: true });
+						}
+					});
+				}
+				break;
+			default:
+				assertUnreachable(message);
 		}
 	},
 );

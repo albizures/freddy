@@ -2,6 +2,8 @@ export enum MessageTypes {
 	SET_TABS,
 	CHANGE_TAB,
 	NEW_TAB,
+	CLOSE_TAB,
+	MUTE_TAB,
 }
 
 export type Message =
@@ -26,6 +28,16 @@ export type Message =
 				url?: string;
 				active?: boolean;
 			};
+	  }
+	| {
+			from: '__FREDDY__CONTENT';
+			type: MessageTypes.CLOSE_TAB;
+			payload?: number;
+	  }
+	| {
+			from: '__FREDDY__CONTENT';
+			type: MessageTypes.MUTE_TAB;
+			payload?: number;
 	  };
 
 export enum Modes {

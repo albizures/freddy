@@ -163,6 +163,8 @@
 <style lang="postcss">
 	#__FREDDY__ {
 		z-index: 999999 !important;
+
+		@apply backdrop-blur-sm;
 	}
 
 	#__FREDDY__ ul li {
@@ -170,7 +172,7 @@
 	}
 
 	#__FREDDY__ ul li button {
-		@apply block w-full overflow-hidden;
+		@apply block w-full px-2 py-1 overflow-hidden;
 		@apply text-base text-left whitespace-nowrap tracking-normal text-ellipsis text-black;
 	}
 

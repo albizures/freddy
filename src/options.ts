@@ -1,5 +1,11 @@
-import { getTabs, changeTab, openTab } from './messages';
 import { Modes, Option } from './types';
+import {
+	getTabs,
+	muteTab,
+	changeTab,
+	openTab,
+	closeTab,
+} from './messages';
 
 export const tabsToOptions = (tabs: chrome.tabs.Tab[]) => {
 	return tabs.map((tab) => {
@@ -54,13 +60,19 @@ export const commnads: Option[] = [
 	{
 		label: 'Tabs: Close Tab',
 		action: () => {
-			window.close();
+			closeTab();
 		},
 	},
 	{
 		label: 'Tabs: New Tab',
 		action: () => {
 			openTab();
+		},
+	},
+	{
+		label: 'Tabs: Mute Tab',
+		action: () => {
+			muteTab();
 		},
 	},
 	{
